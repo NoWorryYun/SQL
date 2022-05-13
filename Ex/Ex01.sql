@@ -389,3 +389,20 @@ select  sysdate,
         to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss'),
         to_char(sysdate, 'yyyy"년" mm"월" dd"일" hh24:mi:ss')
 from dual;
+
+--NVL(컬럼명, null일때 값) / NVL2(컬럼명, Null아닐때 값, null일때 값)
+select  commission_pct,
+        nvl(commission_pct, 0),
+        nvl2(commission_pct, 100, 0)
+from employees;
+
+
+
+
+
+
+
+
+
+
+
