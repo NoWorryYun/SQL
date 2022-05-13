@@ -102,3 +102,84 @@ and department_id = 90
 group by department_id;
 
 
+--Case ~ End문
+
+select  employee_id,
+        first_name,
+        job_ID,
+        salary,
+        
+        case when job_id = 'AC-ACCOUNT' then salary + salary*0.1
+             when job_id = 'SA_REP' then salary+salary*0.2
+             when job_id = 'ST_CLERK' then salary+salary*0.3
+             else salary
+        end realSalary
+from employees;
+
+
+
+--Decode 문
+
+
+select  employee_id,
+        first_name,
+        job_ID,
+        salary,
+        decode(job_id,  'AC_ACCOUNT', salary+salary*0.1,
+                        'SA_REP', salary+salary*0.2,
+                        'ST_CLERK', salary+salary*0.3,
+                        salary) realSalary
+from employees;        
+
+
+/*
+직원의 이름, 부서, 팀을 출력하세요
+팀은 코드로 결정하며
+부서코드가 10~50이면 ‘A-TEAM’
+        60~100이면 ‘B-TEAM’  
+        110~150이면‘C-TEAM’ 
+        나머지는 ‘팀없음’ 으로 출력하세요.
+*/
+
+select *
+from employees;
+
+select  first_name,
+        job_id, 
+        case when department_id between 10 and 50 then 'A-TEAM'
+             when department_id between 60 and 100 then 'B-TEAM'
+             when department_id between 110 and 150 then 'C-TEAM'
+             else '팀없음'
+        end department_id
+from employees;
+
+
+
+/**************
+Join
+**************/
+
+select*
+from employees, departments;
+
+
+
+select  employee_id,
+        first_name,
+        salary,
+        department_name,
+        em.department_id "e_did",
+        de.department_id "d_did"
+from employees em, departments de
+where em.department_id = de.department_id;
+
+
+--모든 직원이름, 부서이름, 업무명 을 출력하세요
+
+select  em.first_name,
+        de.department_name,
+        job.job_title
+from employees em, departments de, jobs job
+where em.department_id = de.department_id
+and em.job_id = job.job_id
+and em.salary>=7000;
