@@ -18,9 +18,9 @@ order by hire_date asc;
 업무(jobs)별로 업무이름(job_title)과 최고월급(max_salary)을 월급의 내림차순(DESC)로 정렬하세요.
 */
 
-select *
-from employees
-order by job_ID desc, salary desc;
+select job_title, max_salary
+from jobs
+order by max_salary desc;
 
 /*
 문제3.
@@ -43,12 +43,12 @@ and salary > 3000;
 */
 
 select *
-from employees;
+from jobs;
 
-select job_id, salary
-from employees
-where salary > 10000
-order by salary desc;
+select job_title, max_salary
+from jobs
+where max_salary > 10000
+order by max_salary desc;
 
 
 /*
