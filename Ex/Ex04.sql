@@ -89,13 +89,13 @@ where (Department_id, salary) in ( (10, 4400), (20, 13000), (90, 24000) );
 
 
 select  first_name,
-        department_id,
-        salary
+        salary,
+        department_id
 from employees
-where (department_id, salary) IN ( select  department_id,
-                                          max(salary)
+where (department_id, salary) in (select department_id, max(salary) 
                                   from employees
-                                  group by department_id);
+                                  group by department_id)
+order by department_id desc;
 
 
 
@@ -149,8 +149,9 @@ where salary >all ( select  salary
                     from employees
                     where department_id = 110);
 
+-------------------------------------------------
 
-
+--각 부서별로 최고급여를 받는 사원을 출력하세요
 
 
 
