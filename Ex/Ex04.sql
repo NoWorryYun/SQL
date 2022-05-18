@@ -169,21 +169,21 @@ where rn in (1, 4, 5, 7, 10);
 --07년에 입사한 직원중 급여가 많은 직원중 3에서 7등의 이름, 급여, 입사일은?
 
 
-select  rn,
-        first_name,
-        salary,
-        hire_date
+select  ort.rn,
+        ort.first_name,
+        ort.salary,
+        ort.hire_date
 from  (select  rownum rn,
-               first_name,
-               salary,
-               hire_date
+               ot.first_name,
+               ot.salary,
+               ot.hire_date
        from ( select  first_name,
                       salary,
                       hire_date
               from employees
-              order by salary desc)
+              order by salary desc) ot
        where hire_date between '2007/01/01' and '2007/12/31'       
-       )
+       )ort
 where rn between 3 and 7;
 
 
