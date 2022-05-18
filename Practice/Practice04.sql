@@ -91,6 +91,15 @@ and e.job_id = s.job_id
 group by e.job_id, job_title
 order by sum(salary) desc;
 
+select  job_title,
+        sum(salary)
+from employees e, jobs j
+where e.job_id = j.job_id
+group by job_title
+order by sum(salary) desc;
+
+
+
 --문제7.
 select employee_id,
        first_name,
