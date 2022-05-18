@@ -151,7 +151,7 @@ where salary >all ( select  salary
 
 --rownum
 
-                    select  rn,
+select  rn,
         first_name,
         salary
 from ( select rownum rn,
@@ -177,14 +177,25 @@ from  (select  rownum rn,
                first_name,
                salary,
                hire_date
-        from ( select  first_name,
-               salary,
-               hire_date
-               from employees
-               order by salary desc)
-        where hire_date between '2007/01/01' and '2007/12/31'       
-    )
+       from ( select  first_name,
+                      salary,
+                      hire_date
+              from employees
+              order by salary desc)
+       where hire_date between '2007/01/01' and '2007/12/31'       
+       )
 where rn between 3 and 7;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
