@@ -72,9 +72,11 @@ where author_id = 3;
 
 select *
 from author;
---삭제
+--행 삭제
 delete from book;
 
 delete from author;
 
-
+--table 삭제
+drop table book;
+drop table author;
