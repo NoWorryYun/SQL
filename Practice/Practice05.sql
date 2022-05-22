@@ -100,3 +100,79 @@ from employees e, departments d
 where e.department_id = d.department_id(+)
 and hire_date = (select max(hire_date)
                  from employees);
+
+
+--문제 7.
+
+select  e.employee_id,
+        e.first_name,
+        e.last_name,
+        j.job_id,
+        e.salary,
+        em.avg_sal
+from employees e, jobs j, (select  department_id as dep,
+                                    avg_sal
+                            from ( select department_id,
+                                          avg(salary) as avg_sal
+                                   from employees
+                                   group by department_id)
+                            where avg_sal = (select max(avg_sal)
+                                             from (select department_id, avg(salary) as avg_sal
+                                                   from employees
+                                                   group by department_id)
+                                            )
+                            )em
+where e.department_id = dep
+and e.job_id = j.job_id
+order by salary asc;
+                       
+--문제8.
+select  department_name as dep
+from ( select department_name,
+             avg(salary) as avg_sal
+      from employees, departments
+      where employees.department_id = departments.department_id
+     group by department_name)
+where avg_sal = (select max(avg_sal)
+                from (select department_name, avg(salary) as avg_sal
+                      from employees, departments
+                      where employees.department_id = departments.department_id
+                      group by department_name)
+                );
+
+
+
+--문제9.
+select  region_name
+from ( select region_name,
+             avg(salary) as avg_sal
+       from employees e, departments d, locations l, countries c, regions r
+      where e.department_id = d.department_id
+      and d.location_id = l.location_id
+      and l.country_id = c.country_id
+      and c.region_id = r.region_id
+     group by region_name)
+where avg_sal = (select max(avg_sal)
+                from (select region_name, avg(salary) as avg_sal
+                      from employees e, departments d, locations l, countries c, regions r
+                      where e.department_id = d.department_id
+                      and d.location_id = l.location_id
+                      and l.country_id = c.country_id
+                      and c.region_id = r.region_id
+                      group by region_name)
+                );
+
+
+--문제10.
+select  job_title
+from ( select job_title,
+        avg(salary) as avg_sal
+        from employees e, jobs j
+        where e.job_id = j.job_id
+        group by job_title)
+where avg_sal = (select max(avg_sal)
+                 from (select job_title, avg(salary) as avg_sal
+                       from employees e, jobs j
+                       where e.job_id = j.job_id
+                 group by job_title)
+                );
